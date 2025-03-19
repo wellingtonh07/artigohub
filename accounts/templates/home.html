@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Página Inicial{% endblock title %}
+
+{% block content %}
+    <h1>Artigos Recentes</h1>
+    
+    {% if article_list %}
+        {% for article in article_list %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <span class="font-weight-bold">{{ article.title }}</span> &middot;
+                    <span class="text-muted">by {{ article.author }} | {{ article.date }}</span>
+                </div>
+                <div class="card-body">
+                    <p>{{ article.body|truncatewords:30 }}</p>
+                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-primary">Leia Mais</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <a href="{% url 'article_list' %}">Vá para Lista de Artigos</a></p>
+    {% endif %}
+{% endblock content %}
